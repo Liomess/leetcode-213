@@ -1,0 +1,39 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        def ntk(self,i,nums,n,dp):
+            if i==n-1:
+                dp[i]=nums[i]
+                return dp[i]
+            if i>=n:
+                dp[i]=0
+                return dp[i]
+            if dp[i]!=-1:
+                return dp[i]
+            yes,no=0,0
+            yes=nums[i]+ntk(self,i+2,nums,n,dp)
+            no=ntk(self,i+1,nums,n,dp)
+            dp[i]=max(yes,no)
+            return dp[i]
+        def tk(self,i,nums,n,dp):
+            if i==n-2:
+                dp[i]=nums[i]
+                return dp[i]
+            if i>=n-1:
+                dp[i]=0
+                return dp[i]
+            if dp[i]!=-1:
+                return dp[i]
+            yes,no=0,0
+            yes=nums[i]+tk(self,i+2,nums,n,dp)
+            no=tk(self,i+1,nums,n,dp)
+            dp[i]=max(yes,no)
+            return dp[i]
+        
+        n=len(nums)
+        if n==1:
+            return nums[0]
+        dp=[-1 for i in range(n+1)]
+        val1=tk(self,0,nums,n,dp)
+        dp=[-1 for i in range(n+1)]
+        val2=ntk(self,1,nums,n,dp)
+        return max(val1,val2)
